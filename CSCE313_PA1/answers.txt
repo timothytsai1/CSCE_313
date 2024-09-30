@@ -1,0 +1,14 @@
+3.1.5 
+Length of File | Time Taken To Transfer
+1Kb            | 1 ms
+1Mb            | 211 ms
+10Mb           | 2112 ms or 2.112 s
+100Mb          | 22130 ms or 22.13 s
+
+
+3.3
+It took 22.13 seconds in order to transfer a 100Mb file, and I believe that the main bottleneck 
+when transferring large files is the amount of round trip server calls that need to be made due 
+to the smaller buffer size. Each chunk requires a separate request and response, which increases 
+network and processing latency. Additionally, the limits of disk read/write speed further slow down 
+the process when handling larger files.

@@ -13,8 +13,10 @@
 #include "common.h"
 #include "FIFORequestChannel.h"
 #include <fstream>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 int main(int argc, char *argv[])
 {
@@ -167,6 +169,7 @@ int main(int argc, char *argv[])
 		__int64_t file_length;
 		chan->cread(&file_length, sizeof(__int64_t));
 
+		auto start = high_resolution_clock::now();
 		int buffer = MAX_MESSAGE - sizeof(filemsg);
 		__int64_t chunk = buffer;
 		int numChunks = (file_length + chunk - 1) / chunk;
@@ -201,6 +204,11 @@ int main(int argc, char *argv[])
 		}
 
 		file.close();
+
+		auto stop = high_resolution_clock::now();
+		auto duration = duration_cast<milliseconds>(stop - start);
+
+		cout << "Time taken to transfer " << fname << ": " << duration.count() << " ms" << endl;
 		string received = "received/" + fname;
 		string original = "BIMDC/" + fname;
 		string diffCommand = "diff " + received + " " + original;
