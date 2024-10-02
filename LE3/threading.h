@@ -6,7 +6,7 @@
 #ifndef COOPERATIVE_MULTITASKING
 #define COOPERATIVE_MULTITASKING
 
-#define STK_SZ  4096
+#define STK_SZ 4096
 #define NUM_CTX 16
 
 /**
@@ -16,8 +16,8 @@
 enum context_state
 {
         INVALID = 0, // The context entry is invalid
-        VALID   = 1, // The context entry is valid and ready to be used
-        DONE    = 2, // This context has completed its work
+        VALID = 1,   // The context entry is valid and ready to be used
+        DONE = 2,    // This context has completed its work
 };
 
 /**
@@ -43,7 +43,7 @@ struct worker_context
  * are declared in threading_data.c
  */
 extern struct worker_context contexts[NUM_CTX];
-extern uint8_t               current_context_idx;
+extern uint8_t current_context_idx;
 
 typedef void (*fptr)(int32_t, int32_t);
 typedef void (*ctx_ptr)(void);
@@ -79,7 +79,7 @@ int32_t t_yield();
 /**
  * This function is called by the worker to indicate that it has completed its
  * work. After this function is called, the worker's context is deleted and the
- * worker is never scheduled back again 
+ * worker is never scheduled back again
  */
 void t_finish();
 
